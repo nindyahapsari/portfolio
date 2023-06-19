@@ -1,13 +1,17 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Container, Header, Segment } from 'semantic-ui-react'
 
-import TodoForm from "../Components/TodoForm"
-import TodoList from "../Components/TodoList"
+import TodoForm from "../components/TodoForm"
+import TodoList from "../components/TodoList"
 
 const Todo = () => {
 
   const [ lists, setLists ] = useState([])
   const [ isLoading, setIsLoading ] = useState(false)
+
+  useEffect(() => {
+    localStorage.setItem('items', JSON.stringify(lists))
+  }, [lists])
 
   if (isLoading){
     return (

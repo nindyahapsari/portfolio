@@ -4,7 +4,7 @@ import { Container, Button, Checkbox, Form } from 'semantic-ui-react'
 
 const TodoForm = ({ lists, setLists }) => {
 
-  const [ todoInput, setTodoInput ] = useState()
+  const [ todoInput, setTodoInput ] = useState('')
 
   const onHandleSubmit = () => {
     const list = {
@@ -35,7 +35,7 @@ const TodoForm = ({ lists, setLists }) => {
           </Form.Field>
         </Form.Group>
         <Button 
-          disabled={todoInput.length < 1}
+          disabled={!todoInput}
           type='submit' 
           onClick={onHandleSubmit}
         >
