@@ -5,18 +5,15 @@ import { Segment, Button, Form, Checkbox, Header } from 'semantic-ui-react'
 const TodoList = props => {
 
 const { 
-    lists,
-    list, 
+    list,
+    setTodoList,
     onDelete, 
   } = props
 
-
-  const [ isDone, setIsDone ] = useState(false)
-
   const onChangeCheckbox = (currentTodoId) => {
-    setIsDone(prevDone => !prevDone)
-    const currentTodo = lists.find(mainList => mainList.id === currentTodoId )
-    currentTodo.done = isDone
+    setTodoList(prevTodos => prevTodos
+      .map(todo => todo.id === currentTodoId ? {...todo, done: !todo.done} : todo)
+    )
   }
 
   return (
@@ -24,14 +21,18 @@ const {
       <Segment>
         <Segment.Group horizontal>
           <Segment>
-            <Header as='h3' className={isDone ? 'list-done' : 'list-not-done'}>
+            <Header as='h3' 
+              className={list.done ? 'list-done' : 'list-not-done'}
+            >
               { list.todo }
             </Header>
           </Segment>
           <Segment>
             <Form.Field>
               <label>Done: </label>
-              <Checkbox checked={isDone} onChange={() => onChangeCheckbox(list.id)} />
+              <Checkbox 
+                onChange={() => onChangeCheckbox(list.id)} 
+              />
             </Form.Field>
           </Segment>
           <Segment>

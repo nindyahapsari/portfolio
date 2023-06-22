@@ -13,8 +13,12 @@ const TodoForm = ({ todoList, setTodoList }) => {
       todo: todoInput,
       done: false,
     }
-    setLists( prevLists => [...prevLists, list])
-    setTodoInput('')
+
+    if (todoInput.current !== ''){
+      setTodoList( prevtodoList => [...prevtodoList, list])
+      setTodoInput('')
+    }
+
   }
 
   const onHandleChange = (e) => {
@@ -29,9 +33,9 @@ const TodoForm = ({ todoList, setTodoList }) => {
             <label>Todo: </label>
             <input 
               required
-              value={ todoInput }
               onChange={(e) => onHandleChange(e)}
-              placeholder='add todo'
+              value={todoInput}
+              placeholder="Add todo"
             />
           </Form.Field>
         </Form.Group>
