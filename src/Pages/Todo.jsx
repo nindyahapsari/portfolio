@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Container, Header, Segment, Message, Icon } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
+import { Container, Header, Segment, Message, Icon, Button } from 'semantic-ui-react'
 
 import TodoForm from "../components/TodoForm"
 import TodoList from "../components/TodoList"
@@ -65,6 +66,22 @@ const Todo = () => {
               }
             </Segment.Group>
         }
+        </Segment>
+      </Container>
+      <Container className='button-footer'>
+        <Segment basic>
+          <Button.Group>
+              <Link to='https://github.com/nindyahapsari/react-exercises' target='_blank' rel='noopener noreferrer'>
+              <Button>
+                <Icon name='github'/>
+              </Button>
+            </Link>
+            <Link to='https://www.linkedin.com/in/nindya-hapsari-a5000a153/' target='_blank' rel='noopener noreferrer'>
+              <Button>
+                <Icon name='linkedin'/>
+              </Button>
+            </Link>
+          </Button.Group>
         </Segment>
       </Container>
     </>
