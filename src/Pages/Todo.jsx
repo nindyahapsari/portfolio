@@ -6,12 +6,19 @@ import TodoList from "../components/TodoList"
 
 const Todo = () => {
 
-  const [ lists, setLists ] = useState([])
+  const [ todoList, setTodoList ] = useState(() => {
+    const todoListFromLocalStorage = localStorage.getItem('todolist')
+    if (todoListFromLocalStorage){
+      return JSON.parse(todoListFromLocalStorage)
+    } else {
+      return []
+    } 
+  })
   const [ isLoading, setIsLoading ] = useState(false)
 
   useEffect(() => {
-    localStorage.setItem('items', JSON.stringify(lists))
-  }, [lists])
+    localStorage.setItem('todolist', JSON.stringify(todoList))
+  }, [todoList])
 
   if (isLoading){
     return (
@@ -20,8 +27,8 @@ const Todo = () => {
   }
 
   const onDelete = (id) => {
-    let updatedLists = lists.filter((list) => list.id !== id )
-    setLists(updatedLists)
+    let updatedtodoList = todoList.filter((list) => list.id !== id )
+    setTodoList(updatedtodoList)
   }
 
   return (
@@ -32,21 +39,23 @@ const Todo = () => {
       <Container>
         <br />
         <TodoForm 
-          lists={lists}
-          setLists={setLists}
+          todoList={todoList}
+          setTodoList={setTodoList}
         />
         <br />
 
         {
 
-          lists.length === 0 ? <Header as='h2'>No Todos, add todo to see the list</Header> : 
+          todoList.length === 0 ? <Header as='h2'>No Todos, add todo to see the list</Header> : 
             <Segment.Group>
               {
-                lists && 
-                  lists.map(list => <TodoList 
+                todoList.length !== 0 && 
+                  todoList.map(list => <TodoList 
                     key={list.id} 
-                    lists={lists}
-                    list={list} 
+                    todoList={todoList}
+                    list={list}
+                    setTodoList={setTodoList}
+                    isDone={list.done}
                     onDelete={() => onDelete(list.id)} 
                   /> 
                   )
