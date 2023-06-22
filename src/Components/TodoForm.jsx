@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { Container, Button, Checkbox, Form } from 'semantic-ui-react'
+import { Container, Button, Form } from 'semantic-ui-react'
 
-const TodoForm = ({ lists, setLists }) => {
+const TodoForm = ({ todoList, setTodoList }) => {
 
+  // const todoInput = useRef(null)
   const [ todoInput, setTodoInput ] = useState('')
 
   const onHandleSubmit = () => {
