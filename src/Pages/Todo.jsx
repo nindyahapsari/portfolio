@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Container, Header, Segment } from 'semantic-ui-react'
+import { Container, Header, Segment, Message, Icon } from 'semantic-ui-react'
 
 import TodoForm from "../components/TodoForm"
 import TodoList from "../components/TodoList"
@@ -34,10 +34,13 @@ const Todo = () => {
   return (
     <>
       <Container className='header-container'>
-        <Header as='h2'>Todo Page</Header>
+        <Header as='h1'>
+          <Icon name='write'/>
+          <Header.Content>Todo List</Header.Content>
+        </Header>
       </Container>
       <Container>
-        <br />
+        <Segment size='large' padded>
         <TodoForm 
           todoList={todoList}
           setTodoList={setTodoList}
@@ -46,7 +49,7 @@ const Todo = () => {
 
         {
 
-          todoList.length === 0 ? <Header as='h2'>No Todos, add todo to see the list</Header> : 
+          todoList.length === 0 ? <Message size='small' content='Start to add your todo for today' /> :
             <Segment.Group>
               {
                 todoList.length !== 0 && 
@@ -62,6 +65,7 @@ const Todo = () => {
               }
             </Segment.Group>
         }
+        </Segment>
       </Container>
     </>
   )

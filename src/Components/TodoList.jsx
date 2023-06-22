@@ -19,26 +19,45 @@ const {
   return (
     <>
       <Segment>
-        <Segment.Group horizontal>
-          <Segment>
-            <Header as='h3' 
-              className={list.done ? 'list-done' : 'list-not-done'}
+        <Grid padded verticalAlign='middle'>
+          <Grid.Row column={2}>
+            <Grid.Column 
+              width={8}
             >
-              { list.todo }
-            </Header>
-          </Segment>
-          <Segment>
-            <Form.Field>
-              <label>Done: </label>
-              <Checkbox 
-                onChange={() => onChangeCheckbox(list.id)} 
-              />
-            </Form.Field>
-          </Segment>
-          <Segment>
-            <Button basic color='red' content='Delete' onClick={onDelete} />
-          </Segment>
-        </Segment.Group>
+              <div>
+                <Header as='h3' 
+                  className={list.done ? 'list-done' : 'list-not-done'}
+                >
+                  { list.todo }
+                </Header>
+              </div>
+            </Grid.Column>
+            <Grid.Column 
+              width={2}
+              floated='right'
+            >
+              <div>
+                <Button.Group>
+                  <Button 
+                    size='tiny'
+                    basic 
+                    onClick={() => onChangeCheckbox()} 
+                  >
+                  <Checkbox 
+                    onChange={() => onChangeCheckbox(list.id)} 
+                  />
+                  </Button>
+                  <Button 
+                    size='tiny'
+                    basic 
+                    onClick={onDelete} 
+                    icon='times'
+                  />
+                </Button.Group>
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </Segment>
     </>
   )
