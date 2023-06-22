@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react'
-import { Segment, Button, Form, Checkbox, Header } from 'semantic-ui-react'
+import { Grid, Segment, Button, Form, Checkbox, Header } from 'semantic-ui-react'
 
 const TodoList = props => {
 

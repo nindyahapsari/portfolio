@@ -1,28 +1,44 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { Container, Button, Form } from 'semantic-ui-react'
+import { Container, Button, Form, Message } from 'semantic-ui-react'
 
 const TodoForm = ({ todoList, setTodoList }) => {
 
-  // const todoInput = useRef(null)
-  const [ todoInput, setTodoInput ] = useState('')
+  const [ todoInput, setTodoInput ] = useState({
+    value: '',
+    isTouched: false,
+  })
+
+  const getIsFormValid = () => {
+    return (
+    todoInput.value
+    )
+  }
 
   const onHandleSubmit = () => {
     const list = {
       id: uuidv4(),
-      todo: todoInput,
+      todo: todoInput.value,
       done: false,
     }
 
-    if (todoInput.current !== ''){
+    if (todoInput.value){
       setTodoList( prevtodoList => [...prevtodoList, list])
-      setTodoInput('')
+      setTodoInput({ value: '', isTouched: false })
     }
 
   }
 
   const onHandleChange = (e) => {
-    setTodoInput(e.target.value)
+    setTodoInput({ ...todoInput, value: e.target.value })
+  }
+
+  const WarningMessage = () => {
+    return (
+    <Message negative>
+        <p>This field cannot be empty</p>
+    </Message>
+    )
   }
 
   return (
@@ -30,17 +46,18 @@ const TodoForm = ({ todoList, setTodoList }) => {
       <Form>
         <Form.Group widths='equal'>
           <Form.Field>
-            <label>Todo: </label>
             <input 
-              required
               onChange={(e) => onHandleChange(e)}
-              value={todoInput}
+              value={todoInput.value}
+              onBlur={() => setTodoInput({ ...todoInput, isTouched: true })}
               placeholder="Add todo"
             />
+            { todoInput.isTouched && todoInput.value.length === 0 ? <WarningMessage /> : null}
           </Form.Field>
         </Form.Group>
         <Button 
-          disabled={!todoInput}
+          primary
+          disabled={!getIsFormValid()}
           type='submit' 
           onClick={onHandleSubmit}
         >
