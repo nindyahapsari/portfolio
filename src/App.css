@@ -1,1 +1,12 @@
+.header-container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
 
+.list-done {
+  text-decoration: line-through;
+}
+
+.list-not-done {
+  color: blue;
+}
