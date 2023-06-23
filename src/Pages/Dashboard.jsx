@@ -2,6 +2,8 @@ import { v4 as uuidv4 } from 'uuid'
 import { Link } from 'react-router-dom'
 import { Container, Grid, Header, Card, Segment, Icon } from 'semantic-ui-react'
 
+import ProjectCard from '../Components/ProjectCard'
+
 const projectCardAttributes = [
   {
     id: uuidv4(),
@@ -17,7 +19,7 @@ const projectCardAttributes = [
     description: 'Small collection of github repository',
     icon: 'code',
     techstack: 'place techstack here',
-    linkPage: '/todo',
+    linkPage: '/githubrepos',
   },
   {
     id: uuidv4(),
@@ -28,20 +30,6 @@ const projectCardAttributes = [
     linkPage: '/todo',
   }
 ]
-
-const ProjectCard = (projectAttr) => {
-const { header, description, icon, techstack } = projectAttr.projectAttr
-  return (
-    <Card link>
-      <Card.Content header={header}/>
-      <Card.Content description={description}/>
-      <Card.Content extra>
-        <Icon name={icon}/>
-        { techstack }
-      </Card.Content>
-    </Card>
-  )
-}
 
 const Dashboard = () => {
   return (
@@ -54,11 +42,21 @@ const Dashboard = () => {
           <Grid.Column padded={true}>
             <Card.Group centered itemsPerRow={3}>
               {
-                projectCardAttributes.map(projectAttr => (
+                projectCardAttributes.map(projectAttr => {
+                  console.log(projectAttr)
+                  return (
                   <Link style={{ margin: '10px' }} key={projectAttr.id} to={projectAttr.linkPage}>
-                    <ProjectCard key={projectAttr.id} projectAttr={projectAttr}/>
+                    <ProjectCard 
+                        key={projectAttr.id} 
+                        header={projectAttr.header}
+                        description={projectAttr.description}
+                        icon={projectAttr.icon}
+                        techstack={projectAttr.techstack}
+                        linkPage={projectAttr.linkPage}
+                      />
                   </Link>
-                ))
+                  )
+                })
               }
             </Card.Group>
           </Grid.Column>
