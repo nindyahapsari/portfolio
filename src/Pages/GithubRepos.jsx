@@ -1,22 +1,29 @@
-import { useState } from 'react'
 import { useQuery } from '@apollo/client';
-import { Label, Grid, Header, Dimmer, Loader, Segment } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
+import { Button, Label, Grid, Header, Dimmer, Loader, Segment } from 'semantic-ui-react'
 
 import ProjectCard from '../Components/ProjectCard'
 import { GET_LUNARVIM_REPOS } from '../Query'
 
-const RepoHeader = (data) => {
+const RepoHeader = ({ 
+  name, 
+  description, 
+  primaryLang,
+}) => {
   return (
       <Segment basic padded>
         <Header as='h1' dividing>
-          Repository collection of {data.repository.name}
+          Repository collection of {name}
+          <Link to='/dashboard'>
+          <Button content='Dashboard' icon='arrow left' floated='right'/>
+          </Link>
         </Header>
         <Header.Subheader as='h3'>
-          { data.repository.description}
+          {description}
         </Header.Subheader>
         <Label size='big'>
           Primary Language
-          <Label.Detail>{data.repository.primaryLanguage.name}</Label.Detail>
+          <Label.Detail>{primaryLang}</Label.Detail>
         </Label>
       </Segment>
 
@@ -26,16 +33,14 @@ const RepoHeader = (data) => {
 
 const GithubRepos = () => {
 
-  const first = 20
-  const { loading, error, data } = useQuery(GET_LUNARVIM_REPOS, { 
-    variables: { first }
+  const { loading, error, data, refetch } = useQuery(GET_LUNARVIM_REPOS, { 
+    variables: { first: 6 }
   }
   )
-  console.log(data)
 
   const LoaderElement = () => {
     return (
-    <Segment>
+    <Segment padded>
       <Dimmer active inverted>
         <Loader size='medium'>Fetching data...</Loader>
       </Dimmer>
@@ -45,14 +50,26 @@ const GithubRepos = () => {
   }
 
   if (loading){
-    return <Header as='h2'>Loading...</Header>
+    return <LoaderElement />
   }
+
+  const { repository } = data
 
   return (
     <>
-      {
-        !loading && RepoHeader(data)
-      }
+      <RepoHeader 
+        name={repository.name} 
+        description={repository.description} 
+        primaryLang={repository.primaryLanguage.name} 
+      />
+      <Segment>
+        <Header as='h3'>Show me: </Header>
+        <Button.Group>
+          <Button content='5' onClick={() => refetch({ first: 5 })}/>
+          <Button content='10'onClick={() => refetch({ first: 10 })}/>
+          <Button content='20'onClick={() => refetch({ first: 20 })}/>
+        </Button.Group>
+      </Segment>
       <Segment basic>
         <Grid 
           container

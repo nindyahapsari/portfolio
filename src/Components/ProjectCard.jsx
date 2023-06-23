@@ -1,4 +1,4 @@
-import { Container, Grid, Header, Card, Segment, Icon } from 'semantic-ui-react'
+import { Container, Grid, Header, Card, Segment, Icon, Popup } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 const ProjectCard = ({
@@ -22,9 +22,14 @@ const ProjectCard = ({
           </Card.Content>
           :
           <Card.Content extra>
-            <Link to={linkPage} target='_blank' rel='noopener noreferrer'>
-              <Icon name='github'/>
-            </Link>
+            <Popup 
+              content='click here to go to the repository'
+              trigger={
+                <Link to={linkPage} target='_blank' rel='noopener noreferrer'>
+                  <Icon name='github'/>
+                </Link>
+                }
+            />
           </Card.Content>
       }
     </Card>
