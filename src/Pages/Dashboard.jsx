@@ -43,7 +43,6 @@ const Dashboard = () => {
             <Card.Group centered itemsPerRow={3}>
               {
                 projectCardAttributes.map(projectAttr => {
-                  console.log(projectAttr)
                   return (
                   <Link style={{ margin: '10px' }} key={projectAttr.id} to={projectAttr.linkPage}>
                     <ProjectCard 
