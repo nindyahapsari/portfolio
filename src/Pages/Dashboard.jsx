@@ -4,6 +4,7 @@ import { Container, Grid, Header, Card, Segment, Icon } from 'semantic-ui-react'
 
 import ProjectCard from '../Components/ProjectCard'
 
+
 const projectCardAttributes = [
   {
     id: uuidv4(),
@@ -20,6 +21,7 @@ const projectCardAttributes = [
     icon: 'code',
     techstack: 'place techstack here',
     linkPage: '/githubrepos',
+
   },
   {
     id: uuidv4(),
