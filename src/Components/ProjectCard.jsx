@@ -1,4 +1,4 @@
-import { Container, Grid, Header, Card, Segment, Icon, Popup } from 'semantic-ui-react'
+import { Card, Icon, Popup } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 const ProjectCard = ({
@@ -7,10 +7,7 @@ const ProjectCard = ({
   icon,
   techstack=null,
   linkPage=null,
-}) => {
-
-// const { description, icon, techstack, link } = projectAttr
-  return (
+}) => (
     <Card>
       <Card.Content header={header}/>
       <Card.Content description={description}/>
@@ -34,6 +31,5 @@ const ProjectCard = ({
       }
     </Card>
   )
-}
 
 export default ProjectCard

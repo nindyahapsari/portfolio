@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 import { Link } from 'react-router-dom'
-import { Container, Grid, Header, Card, Segment, Icon } from 'semantic-ui-react'
+import { Container, Grid, Header, Card, Segment } from 'semantic-ui-react'
 
 import ProjectCard from '../Components/ProjectCard'
 
