@@ -5,6 +5,7 @@ import Login from './Pages/Login'
 import Dashboard from './Pages/Dashboard'
 import ListPage from './Pages/ListPage'
 import Todo from './Pages/Todo'
+import GithubRepos from './Pages/GithubRepos'
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <Route path='/dashboard' element={<Dashboard />} />
       <Route path='/list' element={<ListPage />} />
       <Route path='/todo' element={<Todo />} />
+      <Route path='/githubrepos' element={<GithubRepos />} />
     </Routes>
   )
 }
