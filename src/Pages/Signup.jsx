@@ -1,97 +1,95 @@
-import { useState } from 'react'
-import { Container, Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import  useSubmit  from '../Hooks/useSubmit'
+import { useFormik } from "formik";
+import { Container, Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
+import * as Yup from 'yup';
+import {useAlertContext} from "../Context/alertContext";
 
-
-function removeWhiteSpaces(string) {
-  return string.replace(/\s+/g, '')
-}
 
 const Signup = props => {
 
-  const [ name, setName ] = useState('')
-  const [ email, setEmail ] = useState('')
-  const [ password, setPassword ] = useState('')
-  const [ isError, setIsError ] = useState('')
-  const [ errorMessage, setErrorMessage ] = useState('')
-  const [ success, setSuccess ] = useState(false)
+  const { isLoading, response, submit } = useSubmit()
+  const { onOpen } = useAlertContext();
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      email: '',
+      password: '',
+    },
+    onSubmit: (values) => submit('', values),
+    validationSchema: Yup.object({
+      name: Yup.string().required("Required"),
+      email: Yup.string().email("Invalid email address").required("Required"),
+      password: Yup.string().min(6, "Must be at least 6 characters").required("Required")
+        })
+  })
 
-    const isEmailValid = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email)
-
-    if (!isEmailValid) {
-      setIsError(true)
-      setErrorMessage('Please enter a valid email address.')
-      return
+  useEffect(() =>{
+    if (response) {
+      console.log(response)
+      onOpen(response.type, response.message)
+      if (response.type === 'success') {
+        formik.resetForm()
+      }
     }
 
-    const trimWhiteSpaceName = removeWhiteSpaces(name)
-
-    try {
-      setName(trimWhiteSpaceName)
-      console.log({
-        name,
-        email,
-        password,
-      })
-      setName('')
-      setEmail('')
-      setPassword('')
-      setSuccess(true)
-
-    } catch (err){
-      console.log('error', err)
-      console.log({ error: true, errorMessage: e.message, })
-
-    }
-  }
-
+  },[response])
   
-  console.log(props)
-  // if (success){
-    // const { history } = props
-    // history.push('/dashboard')
-  // }
-
   return (
     <Container>
       <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
+          {
+             response && response.type === 'success' ?  <Message
+              success
+              header='Your user registration was successful'
+              content={response.message}
+            /> :
+              null
+              
+          }
           <Header as='h2'>Sign up with us</Header>
-          <Form size='large'>
+          <Form size='large' onSubmit={formik.handleSubmit}>
             <Segment stacked>
               <Form.Input 
+                id='name'
+                name='name'
                 fluid icon='user' 
                 iconPosition='left' 
                 placeholder='Name' 
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                {...formik.getFieldProps('name')}
               />
+              { formik.errors.name ? <Message negative>{formik.errors.name}</Message> : null }
               <Form.Input 
+                id='email'
+                type='email'
                 fluid icon='user' 
                 iconPosition='left' 
                 placeholder='E-mail address' 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                name="email"
+                {...formik.getFieldProps('email')}
               />
+              { formik.errors.email ? <Message negative>{formik.errors.email}</Message> : null }
               <Form.Input
-                fluid
+                id='password'
                 icon='lock'
                 iconPosition='left'
                 placeholder='Password'
                 type='password'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                name="password"
+                onChange={formik.handleChange}
+                {...formik.getFieldProps('password')}
               />
+              { formik.errors.password ? <Message negative>{formik.errors.password}</Message> : null }
 
-              <Button onClick={handleSubmit} color='teal' fluid size='large'>
-                Sign up
-              </Button>
+              <Form.Button type='submit' content='Sign up'/>
             </Segment>
           </Form>
           <Message>
-            Already have an account? <a href='#'>Login</a>
+            Already have an account? 
+            <Link to='/'>Login</Link>
           </Message>
         </Grid.Column>
       </Grid>
