@@ -1,17 +1,30 @@
-
 import { useState } from 'react'
 
+interface Response {
+  type: 'success' | 'error',
+  message: string,
+}
+
+interface submitedData {
+  name: string,
+}
+
+interface useSubmitReturn {
+  isLoading: boolean,
+  response: Response | null,
+  submit: (url: string, data: submitedData) => Promise<void>,
+}
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 
-const useSubmit = () => {
+const useSubmit = (): useSubmitReturn => {
 
   const [isLoading, setIsLoading] = useState(false)
-  const [response, setResponse] = useState(null)
+  const [response, setResponse] = useState<Response | null>(null)
 
 
-  const submit = async (url, data) => {
+  const submit = async (url: string, data: submitedData): Promise<void> => {
     const random = Math.random()
     try {
 

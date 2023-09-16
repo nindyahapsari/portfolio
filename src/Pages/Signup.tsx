@@ -6,19 +6,24 @@ import { Container, Button, Form, Grid, Header, Message, Segment } from 'semanti
 import * as Yup from 'yup';
 import {useAlertContext} from "../Context/alertContext";
 
+interface initialValues {
+  name: string,
+  email: string,
+  password: string,
+}
 
-const Signup = props => {
+const Signup = () => {
 
   const { isLoading, response, submit } = useSubmit()
   const { onOpen } = useAlertContext();
 
-  const formik = useFormik({
+  const formik = useFormik<initialValues>({
     initialValues: {
       name: '',
       email: '',
       password: '',
     },
-    onSubmit: (values) => submit('', values),
+    onSubmit: (values: initialValues) => submit('', values),
     validationSchema: Yup.object({
       name: Yup.string().required("Required"),
       email: Yup.string().email("Invalid email address").required("Required"),
