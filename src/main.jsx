@@ -11,12 +11,12 @@ import { AlertProvider } from './Context/alertContext.jsx';
 ReactDOM.createRoot(document.getElementById('root')).render(
 
   <ApolloProvider client={client}>
-        <AlertProvider>
-  <BrowserRouter>
-    <Routes>
-      <Route path='/*' element={<App />} />
-    </Routes>
-  </BrowserRouter>
-      </AlertProvider>
+    <AlertProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/*' element={<App />} />
+        </Routes>
+      </BrowserRouter>
+    </AlertProvider>
   </ApolloProvider>
 )
