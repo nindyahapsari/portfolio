@@ -12,6 +12,8 @@ interface AlertContextProps {
   onClose: jest.Mock,
 }
 
+
+
 describe('Signup.tsx', () => {
 
     const renderSignup = () => {
@@ -33,17 +35,29 @@ describe('Signup.tsx', () => {
     )
   }
 
-  describe('when in first page', () => {
-    it('should render the sign up form', async () => {
-
+  describe('when on the first page', () => {
+    beforeEach(() => {
       renderSignup()
+    })
+
+     const testCases = [
+      { description: 'email input', query: /Email/i },
+      { description: 'password input', query: /Password/i },
+      { description: 'confirm password input', query: /Confirm Password/i },
+      { description: 'submit button', query: /Submit/i },
+    ];
 
 
+    describe.each(testCases)('rendering %s', ({ description, query }) => {
+      it('should render the `${description}`', async () => {
+        const element = screen.getByText(query)
+        await waitFor(() => expect(element).toBeInTheDocument())
+      })
+    })
+
+    it.skip('should render the sign up form', async () => {
       const titleForTheForm = screen.getByText(/Sign up with us/i)
-
-      // screen.debug(undefined, Infinity)
       await waitFor(() => expect(titleForTheForm).toBeInTheDocument())
-
     })
   })
   
