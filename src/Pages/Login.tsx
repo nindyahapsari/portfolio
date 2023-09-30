@@ -1,18 +1,17 @@
-import { useState, FC } from 'react'
+import React, { useState, FC, FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
-import { Container, Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import { Container, Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 
-const Login: FC = props => {
-  console.log(props)
+const Login: FC = () => {
 
-  const [ email, setEmail ] = useState('')
-  const [ password, setPassword ] = useState('')
-  const [ success, setSuccess ] = useState(false)
+  const [ email, setEmail ] = useState<string>('')
+  const [ password, setPassword ] = useState<string>('')
+  const [ success, setSuccess ] = useState<boolean>(false)
 
   const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
 
     try {
