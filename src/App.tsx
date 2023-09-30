@@ -1,3 +1,4 @@
+import React, { FC } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import Signup from './Pages/Signup'
@@ -8,8 +9,7 @@ import Todo from './Pages/Todo'
 import GithubRepos from './Pages/GithubRepos'
 
 
-function App() {
-
+const App: FC = () => {
   return (
     <Routes>
       <Route path='/' element={<Login />} />

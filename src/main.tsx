@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import App from './App.jsx'
+import App from './App.1.js';
 import './index.css'
 import 'semantic-ui-css/semantic.min.css'
 import { ApolloProvider } from "@apollo/client";

@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useState, FC } from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { Container, Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
-const Login = props => {
+const Login: FC = props => {
+  console.log(props)
 
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
