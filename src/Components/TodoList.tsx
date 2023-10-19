@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Grid, Segment, Button, Form, Checkbox, Header } from 'semantic-ui-react'
 
-const TodoList = props => {
+const TodoList: React.FC = props => {
 
 const { 
     list,

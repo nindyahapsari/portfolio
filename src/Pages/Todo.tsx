@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Header, Segment, Message, Icon, Button } from 'semantic-ui-react'
 
 import TodoForm from "../components/TodoForm"
 import TodoList from "../components/TodoList"
 
-const Todo = () => {
+const Todo: React.FC = () => {
 
   const [ todoList, setTodoList ] = useState(() => {
     const todoListFromLocalStorage = localStorage.getItem('todolist')
@@ -27,8 +27,8 @@ const Todo = () => {
     )
   }
 
-  const onDelete = (id) => {
-    let updatedtodoList = todoList.filter((list) => list.id !== id )
+  const onDelete = (id: number) => {
+    let updatedtodoList: number[] = todoList.filter((list) => list.id !== id )
     setTodoList(updatedtodoList)
   }
 
