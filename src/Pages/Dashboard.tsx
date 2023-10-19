@@ -1,3 +1,4 @@
+import React from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { Link } from 'react-router-dom'
 import { Container, Grid, Header, Card, Segment } from 'semantic-ui-react'
@@ -5,7 +6,16 @@ import { Container, Grid, Header, Card, Segment } from 'semantic-ui-react'
 import ProjectCard from '../Components/ProjectCard'
 
 
-const projectCardAttributes = [
+interface ProjectCardAttribute {
+  id: string;
+  header: string;
+  description: string;
+  icon: string;
+  techstack: string;
+  linkPage: string;
+}
+
+const projectCardAttributes: ProjectCardAttribute[] = [
   {
     id: uuidv4(),
     header: 'Todo List',
@@ -33,7 +43,7 @@ const projectCardAttributes = [
   }
 ]
 
-const Dashboard = () => {
+const Dashboard: React.FC = () => {
   return (
     <Container>
       <Segment basic>
