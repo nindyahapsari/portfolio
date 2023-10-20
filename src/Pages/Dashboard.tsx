@@ -11,8 +11,8 @@ interface ProjectCardAttribute {
   header: string;
   description: string;
   icon: string;
-  techstack: string;
-  linkPage: string;
+  techstack: string | null | undefined;
+  linkPage: string | null | undefined; 
 }
 
 const projectCardAttributes: ProjectCardAttribute[] = [
