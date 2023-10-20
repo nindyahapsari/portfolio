@@ -17,7 +17,7 @@ const App: FC = () => {
       <Route path='/dashboard' element={<Dashboard />} />
       {/* <Route path='/list' element={<ListPage />} /> */}
       {/* <Route path='/todo' element={<Todo />} /> */}
-      {/* <Route path='/githubrepos' element={<GithubRepos />} /> */}
+      <Route path='/githubrepos' element={<GithubRepos />} />
     </Routes>
   )
 }
