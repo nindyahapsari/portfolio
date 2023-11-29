@@ -10,7 +10,6 @@ type projectCardProps = {
   linkPage? : string,
 }
 
-
 function ProjectCard ({
   header, description, icon, techstack, linkPage,
 }: projectCardProps) {
