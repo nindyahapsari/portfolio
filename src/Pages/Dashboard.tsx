@@ -51,7 +51,7 @@ const Dashboard: React.FC = () => {
       </Segment>
       <Grid columns='equal' padded relaxed>
         <Grid.Row>
-          <Grid.Column padded={true}>
+          <Grid.Column padded>
             <Card.Group centered itemsPerRow={3}>
               {
                 projectCardAttributes.map(projectAttr => {

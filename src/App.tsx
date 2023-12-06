@@ -9,6 +9,7 @@ import Todo from './Pages/Todo'
 import GithubRepos from './Pages/GithubRepos'
 
 
+// process of changing design for this portfolio
 const App: FC = () => {
   return (
     <Routes>
