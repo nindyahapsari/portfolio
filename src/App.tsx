@@ -10,7 +10,7 @@ import GithubRepos from './Pages/GithubRepos'
 
 
 // process of changing design for this portfolio
-// // need to work on the styling probably using css
+// need to work on the styling probably using css
 const App: FC = () => {
   return (
     <Routes>
