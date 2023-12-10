@@ -1,3 +1,4 @@
+import React from 'react'
 import { Container, Dimmer, Loader } from 'semantic-ui-react'
 
 const LoaderElement = () => (
