@@ -1,10 +1,10 @@
 import React from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { Link } from 'react-router-dom'
-import { Container, Grid, Header, Card, Segment } from 'semantic-ui-react'
+import { Container, Grid, Header, Card, Segment, SegmentGroup } from 'semantic-ui-react'
 
 import ProjectCard from '../Components/ProjectCard'
-
+import Bio from '../Components/Bio'
 
 interface ProjectCardAttribute {
   id: string;
@@ -46,7 +46,11 @@ const projectCardAttributes: ProjectCardAttribute[] = [
 const Dashboard: React.FC = () => {
   return (
     <Container>
-      <Segment basic>
+      <SegmentGroup vertical>
+      <Segment >
+        <Bio />
+      </Segment>
+      <Segment basic
         <Header as='h1'>Pick what you want to see</Header>
       </Segment>
       <Grid columns='equal' padded relaxed>
@@ -72,7 +76,8 @@ const Dashboard: React.FC = () => {
             </Card.Group>
           </Grid.Column>
         </Grid.Row>
-      </Grid>
+        </Grid>
+      </SegmentGroup>
     </Container>
   )
 }
