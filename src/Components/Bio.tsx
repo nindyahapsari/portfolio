@@ -1,26 +1,14 @@
 import React from "react";
-import { Card, Icon, SegmentGroup, Feed } from "semantic-ui-react";
-import elliot from "./images/elliot.jpg";
 
 import BioFeed from "./BioComponents/BioFeed";
+import BioProfile from "./BioComponents/BioProfile";
 
-const extra = (
-  <a>
-    <Icon name="user" />
-    16 Friends
-  </a>
-);
+import "./Bio.css";
 
 const Bio = () => {
   return (
-    <div>
-      <Card
-        image={elliot}
-        header="Elliot Baker"
-        meta="Friend"
-        description="Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat."
-        extra={extra}
-      />
+    <div className="bio-section">
+      <BioProfile />
       <BioFeed />
     </div>
   );

@@ -1,0 +1,10 @@
+.bio-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bio-section .card,
+.bio-section .feed {
+  flex: 1 0 auto;
+  margin: 10px;
+}
