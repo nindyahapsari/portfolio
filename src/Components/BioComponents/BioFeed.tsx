@@ -1,47 +1,36 @@
 import React from "react";
-import { Card, Feed } from "semantic-ui-react";
 
 function BioFeed() {
   return (
     <>
-      <Card>
-        <Card.Content>
-          <Card.Header>Recent Activity</Card.Header>
-        </Card.Content>
-        <Card.Content>
-          <Feed>
-            <Feed.Event>
-              <Feed.Label image="/images/avatar/small/jenny.jpg" />
-              <Feed.Content>
-                <Feed.Date content="1 day ago" />
-                <Feed.Summary>
-                  You added <a>Jenny Hess</a> to your <a>coworker</a> group.
-                </Feed.Summary>
-              </Feed.Content>
-            </Feed.Event>
-
-            <Feed.Event>
-              <Feed.Label image="/images/avatar/small/molly.png" />
-              <Feed.Content>
-                <Feed.Date content="3 days ago" />
-                <Feed.Summary>
-                  You added <a>Molly Malone</a> as a friend.
-                </Feed.Summary>
-              </Feed.Content>
-            </Feed.Event>
-
-            <Feed.Event>
-              <Feed.Label image="/images/avatar/small/elliot.jpg" />
-              <Feed.Content>
-                <Feed.Date content="4 days ago" />
-                <Feed.Summary>
-                  You added <a>Elliot Baker</a> to your <a>musicians</a> group.
-                </Feed.Summary>
-              </Feed.Content>
-            </Feed.Event>
-          </Feed>
-        </Card.Content>
-      </Card>
+      <div className="bg-white rounded-lg max-w-md mx-auto">
+        <div className="p-4 border-b">
+          <h2 className="text-2xl font-semibold">Employment History</h2>
+        </div>
+        <div className="p-4">
+          <div className="flex items-center space-x-4">
+            <img
+              className="h-10 w-10 rounded-full"
+              src="/images/avatar/small/jenny.jpg"
+              alt="Jenny"
+            />
+            <div>
+              <div className="text-sm text-gray-500">1 day ago</div>
+              <div>
+                You added{" "}
+                <a href="#" className="text-blue-500">
+                  Jenny Hess
+                </a>{" "}
+                to your{" "}
+                <a href="#" className="text-blue-500">
+                  coworker
+                </a>{" "}
+                group.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
