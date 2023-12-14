@@ -39,54 +39,38 @@ const projectCardAttributes: ProjectCardAttribute[] = [
     techstack: "place techstack here",
     linkPage: "/githubrepos",
   },
-  {
-    id: uuidv4(),
-    header: "third idea",
-    description: "This is place holder",
-    icon: "code",
-    techstack: "place techstack here",
-    linkPage: "/todo",
-  },
 ];
 
-const Dashboard: React.FC = () => {
+const Dashboard = () => {
   return (
-    <Container>
-      <SegmentGroup vertical>
-        <Segment>
-          <Bio />
-        </Segment>
-        <Segment basic>
-          <Header as="h1">Pick what you want to see</Header>
-        </Segment>
-        <Grid columns="equal" padded relaxed>
-          <Grid.Row>
-            <Grid.Column padded>
-              <Card.Group centered itemsPerRow={3}>
-                {projectCardAttributes.map((projectAttr) => {
-                  return (
-                    <Link
-                      style={{ margin: "10px" }}
-                      key={projectAttr.id}
-                      to={projectAttr.linkPage}
-                    >
-                      <ProjectCard
-                        key={projectAttr.id}
-                        header={projectAttr.header}
-                        description={projectAttr.description}
-                        icon={projectAttr.icon}
-                        techstack={projectAttr.techstack}
-                        linkPage={projectAttr.linkPage}
-                      />
-                    </Link>
-                  );
-                })}
-              </Card.Group>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </SegmentGroup>
-    </Container>
+    <div className="flex justify-center mt-14">
+      <div>
+        <Bio />
+        <div className="mt-20">
+          <h2>My Projects</h2>
+          <div className="flex justify-between">
+            {projectCardAttributes.map((projectAttr) => {
+              return (
+                <div className="flex flex-col bg-white border border-gray-300 rounded-lg overflow-hidden max-w-md p-4">
+                  <div className="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                    <i className={`fas fa-${projectAttr.icon}`}></i>
+                  </div>
+                  <h2 className="mt-2 text-xl leading-7 font-semibold text-gray-900">
+                    {projectAttr.header}
+                  </h2>
+                  <p className="mt-3 text-base text-gray-500">
+                    {projectAttr.description}
+                  </p>
+                  <span className="mt-3 inline-block bg-blue-200 text-blue-800 text-xs px-2 rounded-full uppercase font-semibold tracking-wide">
+                    {projectAttr.techstack}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
