@@ -8,7 +8,7 @@ import ListPage from "./Pages/ListPage";
 import Todo from "./Pages/Todo";
 import GithubRepos from "./Pages/GithubRepos";
 
-const App: FC = () => {
+const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
