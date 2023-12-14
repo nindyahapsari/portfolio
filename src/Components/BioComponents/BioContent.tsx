@@ -24,7 +24,7 @@ const BioContent = ({ name, titel, descriptions, job }: BioContentProps) => {
           >
             <path d="M10 20a10 10 0 100-20 10 10 0 000 20zm0-18a8 8 0 100 16 4 4 0 01 0-8 4 4 0 010 8zm0 2a2 2 0 100 4 2 2 0 000-4zm0 6a6 6 0 100-12 6 6 0 000 12zm0-2a4 4 0 110-8 4 4 0 010 8z" />
           </svg>
-          {job}
+          <b>{job}</b>
         </span>
       </div>
     </div>
