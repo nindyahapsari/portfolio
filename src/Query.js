@@ -1,15 +1,15 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const GET_LUNARVIM_REPOS = gql`
-  query getLunarVim ($first: Int!) {
-    repository(owner:"LunarVim", name:"LunarVim") {
+  query getRepos($owner: String!, $name: String!, $first: Int!) {
+    repository(owner: $owner, name: $name) {
       name
       description
       primaryLanguage {
         name
       }
     }
-    search(query: "LunarVim", type: REPOSITORY, first: $first) {
+    search(query: $name, type: REPOSITORY, first: $first) {
       nodes {
         ... on Repository {
           id
@@ -20,6 +20,4 @@ export const GET_LUNARVIM_REPOS = gql`
       }
     }
   }
-`
-
-
+`;
