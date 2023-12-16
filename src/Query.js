@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
-export const GET_LUNARVIM_REPOS = gql`
-  query getRepos($owner: String!, $name: String!, $first: Int!) {
+export const GET_REPO = gql`
+  query getRepos($owner: String!, $name: String!) {
     repository(owner: $owner, name: $name) {
       name
       description
@@ -9,6 +9,11 @@ export const GET_LUNARVIM_REPOS = gql`
         name
       }
     }
+  }
+`;
+
+export const SEARCH_REPOS = gql`
+  query searchRepos($name: String!, $first: Int!) {
     search(query: $name, type: REPOSITORY, first: $first) {
       nodes {
         ... on Repository {
