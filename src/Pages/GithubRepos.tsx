@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 
-import { GET_LUNARVIM_REPOS } from "../Query";
+import { GET_REPO, SEARCH_REPOS } from "../Query";
 
 import LoaderElement from "../Components/LoaderElement";
 import RepoFilter from "../Components/GithubComponents/Filter";
@@ -21,30 +21,44 @@ const REPO_QUANTITY: RepoQuantity[] = [
   { number: 30 },
 ];
 
+const REPO_OWNER: string = "gitdagray";
+const REPO_DEFAULT: string = "";
+
 const GithubRepos = () => {
-  const { loading, error, data, refetch } = useQuery(GET_LUNARVIM_REPOS, {
+  const {
+    loading,
+    data: getRepoData,
+    refetch: refetchGetRepo,
+  } = useQuery(GET_REPO, {
     variables: {
-      owner: "LunarVim",
-      name: "LunarVim",
       first: REPO_QUANTITY_DEFAULT,
     },
   });
 
+  const { data: searchReposData, refetch: refetchSearchRepo } = useQuery(
+    SEARCH_REPOS,
+    {
+      variables: {
+        first: REPO_QUANTITY_DEFAULT,
+      },
+    }
+  );
+
   if (loading) {
-    return <LoaderElement />;
+    return <h2>Loading...</h2>;
   }
 
-  const fetchNumberOfRepos = (quantity: number) => {
-    refetch({ first: quantity });
-  };
+  // const fetchNumberOfRepos = (quantity: number) => {
+  //   refetch({ first: quantity });
+  // };
 
   const handleSearch = (owner: string, name: string) => {
     console.log(owner, name);
 
-    // refetch({ owner, name });
+    refetchGetRepo({ owner, name, first: 5 });
   };
 
-  const { repository } = data;
+  console.log(getRepoData);
 
   return (
     <div className="flex flex-col justify-center items-center">
@@ -56,37 +70,44 @@ const GithubRepos = () => {
         </Link>
       </div>
       <SearchGithubRepo onSearch={handleSearch} />
-      <RepoHeader
-        name={repository.name}
-        description={repository.description}
-        primaryLang={repository.primaryLanguage.name}
-      />
+      {/* <RepoHeader name={data.repository.name} /> */}
 
-      <RepoFilter
+      {/* <RepoFilter
         REPO_QUANTITY={REPO_QUANTITY}
         fetchNumberOfRepos={fetchNumberOfRepos}
-      />
+      /> */}
       <div className="px-52">
         <table className="table-auto w-full mx-auto">
           <thead>
             <tr>
               <th className="px-4 py-2">Name</th>
               <th className="px-4 py-2">Description</th>
+              <th className="px-4 py-2">Language</th>
               <th className="px-4 py-2">Link</th>
             </tr>
           </thead>
           <tbody>
-            {data.search.nodes.map((repo) => (
-              <tr key={repo.id}>
-                <td className="border px-4 py-2">{repo.name}</td>
-                <td className="border px-4 py-2">{repo.description}</td>
+            {getRepoData && (
+              <tr key={getRepoData.repository.id}>
                 <td className="border px-4 py-2">
-                  <a href={repo.url} className="text-blue-500">
+                  {getRepoData.repository.name}
+                </td>
+                <td className="border px-4 py-2">
+                  {getRepoData.repository.description}
+                </td>
+                <td className="border px-4 py-2">
+                  {getRepoData.repository.primaryLanguage.name}
+                </td>
+                <td className="border px-4 py-2">
+                  <a
+                    href={getRepoData.repository.url}
+                    className="text-blue-500"
+                  >
                     View
                   </a>
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
