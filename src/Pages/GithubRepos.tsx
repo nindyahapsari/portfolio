@@ -8,6 +8,7 @@ import LoaderElement from "../Components/LoaderElement";
 import RepoFilter from "../Components/GithubComponents/Filter";
 import RepoHeader from "../Components/GithubComponents/RepoHeader";
 import SearchGithubRepo from "../Components/GithubComponents/SearchGithubRepo";
+import RepoTable from "../Components/GithubComponents/RepoTable";
 
 interface RepoQuantity {
   number: number;
@@ -23,42 +24,52 @@ const REPO_QUANTITY: RepoQuantity[] = [
 
 const REPO_OWNER: string = "gitdagray";
 const REPO_DEFAULT: string = "";
+let INIT_REPO_VALUE: string = "";
 
 const GithubRepos = () => {
+  // const {
+  //   loading,
+  //   data: searchReposData,
+  //   refetch: refetchGetRepo,
+  // } = useQuery(GET_REPO, {
+  //   variables: {
+  //     first: REPO_QUANTITY_DEFAULT,
+  //   },
+  // });
+
   const {
     loading,
-    data: getRepoData,
-    refetch: refetchGetRepo,
-  } = useQuery(GET_REPO, {
+    error,
+    data,
+    refetch: refetchSearchRepo,
+  } = useQuery(SEARCH_REPOS, {
     variables: {
       first: REPO_QUANTITY_DEFAULT,
+      name: INIT_REPO_VALUE,
     },
+    skip: !INIT_REPO_VALUE,
   });
-
-  const { data: searchReposData, refetch: refetchSearchRepo } = useQuery(
-    SEARCH_REPOS,
-    {
-      variables: {
-        first: REPO_QUANTITY_DEFAULT,
-      },
-    }
-  );
 
   if (loading) {
     return <h2>Loading...</h2>;
   }
 
-  // const fetchNumberOfRepos = (quantity: number) => {
-  //   refetch({ first: quantity });
-  // };
+  if (error) {
+    return <h2>Error: {error.message}</h2>;
+  }
 
-  const handleSearch = (owner: string, name: string) => {
-    console.log(owner, name);
+  const fetchNumberOfRepos = (quantity: number) => {
+    refetchSearchRepo({ first: quantity });
+  }
 
-    refetchGetRepo({ owner, name, first: 5 });
-  };
+  const handleRefetchSearchRepo = (name: string) => {
+    INIT_REPO_VALUE = name;
+    refetchSearchRepo({ name });
+  }
 
-  console.log(getRepoData);
+  const nodes = data?.search.nodes;
+
+  console.log("data:", data);
 
   return (
     <div className="flex flex-col justify-center items-center">
@@ -69,48 +80,22 @@ const GithubRepos = () => {
           </button>
         </Link>
       </div>
-      <SearchGithubRepo onSearch={handleSearch} />
+      <SearchGithubRepo
+        fetchSearchRepo={(name: string) => handleRefetchSearchRepo(name)}
+      />
+
       {/* <RepoHeader name={data.repository.name} /> */}
 
-      {/* <RepoFilter
+      <RepoFilter
         REPO_QUANTITY={REPO_QUANTITY}
         fetchNumberOfRepos={fetchNumberOfRepos}
-      /> */}
-      <div className="px-52">
-        <table className="table-auto w-full mx-auto">
-          <thead>
-            <tr>
-              <th className="px-4 py-2">Name</th>
-              <th className="px-4 py-2">Description</th>
-              <th className="px-4 py-2">Language</th>
-              <th className="px-4 py-2">Link</th>
-            </tr>
-          </thead>
-          <tbody>
-            {getRepoData && (
-              <tr key={getRepoData.repository.id}>
-                <td className="border px-4 py-2">
-                  {getRepoData.repository.name}
-                </td>
-                <td className="border px-4 py-2">
-                  {getRepoData.repository.description}
-                </td>
-                <td className="border px-4 py-2">
-                  {getRepoData.repository.primaryLanguage.name}
-                </td>
-                <td className="border px-4 py-2">
-                  <a
-                    href={getRepoData.repository.url}
-                    className="text-blue-500"
-                  >
-                    View
-                  </a>
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+      />
+
+      {nodes !== undefined ? (
+        <RepoTable nodes={nodes} />
+      ) : (
+        <h3>Start searching</h3>
+      )}
     </div>
   );
 };
