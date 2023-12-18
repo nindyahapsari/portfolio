@@ -7,7 +7,7 @@ import "./Bio.css";
 
 const Bio = () => {
   return (
-    <div className="bio-section flex justify-center">
+    <div className="bio-section flex justify-evenly">
       <BioProfile />
       <BioFeed />
     </div>

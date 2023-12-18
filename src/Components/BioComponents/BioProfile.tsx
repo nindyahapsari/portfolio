@@ -1,6 +1,5 @@
 import React from "react";
-import { Card, Icon, SegmentGroup, Feed } from "semantic-ui-react";
-import elliot from "../images/elliot.jpg";
+import myPict from "../images/portfolio_pict.jpeg";
 import BioContent from "./BioContent";
 
 const extra = (
@@ -14,11 +13,11 @@ const BioProfile = () => {
   return (
     <>
       <div className="flex flex-col bg-white  rounded-xl  overflow-hidden max-w-md mx-auto">
-        <img className="w-full object-cover" src={elliot} alt="Elliot" />
+        <img className="w-full object-cover" src={myPict} alt="Elliot" />
         <BioContent
           name="Nindya Hapsari"
           titel="Web Developer / Frontend Developer"
-          descriptions="Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat."
+          descriptions="I am a frontend developer currently living in Berlin"
           job="Looking for a new position"
         />
       </div>
