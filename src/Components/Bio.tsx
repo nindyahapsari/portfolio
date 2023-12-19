@@ -8,6 +8,7 @@ import "./Bio.css";
 const Bio = () => {
   return (
     <div className="bio-section flex justify-evenly">
+      {/* // <BioProfile /> */}
       <BioProfile />
       <BioFeed />
     </div>
